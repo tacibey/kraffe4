@@ -1,6 +1,6 @@
 ---
-//Import relevant dependencies
-import ThemeIcon from "@components/ThemeIcon.astro";
+// Import relevant dependencies
+// import ThemeIcon from "@components/ThemeIcon.astro"; // ThemeIcon import'u kaldırıldı
 import NavLink from "@components/ui/links/NavLink.astro";
 import Authentication from "../misc/Authentication.astro";
 import enStrings from "@utils/navigation.ts";
@@ -19,23 +19,24 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
 >
   <!-- Navigation container -->
   <nav
-    class="relative mx-2 w-full rounded-[36px] border border-yellow-100/40 bg-yellow-50/60 px-4 py-3 backdrop-blur-md dark:border-neutral-700/40 dark:bg-neutral-800/80 dark:backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
+    class="relative mx-2 w-full rounded-[36px] border border-neutral-700/40 bg-neutral-800/80 px-4 py-3 backdrop-blur-md md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
     aria-label="Global"
   >
     <div class="flex items-center justify-between">
       <!-- Brand logo -->
       <a
-        class="flex-none rounded-lg text-xl font-bold outline-hidden ring-zinc-500 focus-visible:ring-3 dark:ring-zinc-200 dark:focus:outline-hidden"
+        class="flex-none rounded-lg text-xl font-bold outline-hidden ring-zinc-200 focus-visible:ring-3 dark:focus:outline-hidden"
         href={homeUrl}
         aria-label="Brand"
       >
-        <BrandLogo class="h-auto w-36" /> 
+        {/* Logo boyutu önceki adımda w-36 olarak ayarlanmıştı, kontrol edelim */}
+        <BrandLogo class="h-auto w-36" />
       </a>
       <!-- Collapse toggle for smaller screens -->
       <div class="ml-auto mr-5 md:hidden">
         <button
           type="button"
-          class="hs-collapse-toggle flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-neutral-600 transition duration-300 hover:bg-neutral-200 disabled:pointer-events-none disabled:opacity-50 dark:text-neutral-400 dark:hover:bg-neutral-700 dark:focus:outline-hidden"
+          class="hs-collapse-toggle flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold text-neutral-400 transition duration-300 hover:bg-neutral-700 disabled:pointer-events-none disabled:opacity-50 dark:focus:outline-hidden"
           data-hs-collapse="#navbar-collapse-with-animation"
           aria-controls="navbar-collapse-with-animation"
           aria-label="Toggle navigation"
@@ -71,10 +72,12 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
           </svg>
         </button>
       </div>
-      <!-- ThemeIcon component specifically for smaller screens -->
+      <!-- ThemeIcon component specifically for smaller screens - KALDIRILDI -->
+      <!--
       <span class="inline-block md:hidden">
         <ThemeIcon />
       </span>
+       -->
     </div>
     <!-- Contains navigation links -->
     <div
@@ -87,121 +90,21 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
       >
         <!-- Navigation links and Authentication component -->
         {strings.navBarLinks.map(link => (
+          // NavLink bileşenini dark tema renklerine göre ayarlamamız gerekebilir, şimdilik kalsın
           <NavLink url={link.url} name={link.name} />
         ))}
 
         <Authentication />
         <LanguagePicker />
-        <!-- ThemeIcon component specifically for larger screens -->
+        <!-- ThemeIcon component specifically for larger screens - KALDIRILDI -->
+        <!--
         <span class="hidden md:inline-block">
           <ThemeIcon />
         </span>
+         -->
       </div>
     </div>
   </nav>
 </header>
-<!-- Theme Appearance script to manage light/dark modes -->
-<script is:inline>
-  const HSThemeAppearance = {
-    init() {
-      const defaultTheme = "default";
-      let theme = localStorage.getItem("hs_theme") || defaultTheme;
-
-      if (document.querySelector("html").classList.contains("dark")) return;
-      this.setAppearance(theme);
-    },
-    _resetStylesOnLoad() {
-      const $resetStyles = document.createElement("style");
-      $resetStyles.innerText = `*{transition: unset !important;}`;
-      $resetStyles.setAttribute("data-hs-appearance-onload-styles", "");
-      document.head.appendChild($resetStyles);
-      return $resetStyles;
-    },
-    setAppearance(theme, saveInStore = true, dispatchEvent = true) {
-      const $resetStylesEl = this._resetStylesOnLoad();
-
-      if (saveInStore) {
-        localStorage.setItem("hs_theme", theme);
-      }
-
-      if (theme === "auto") {
-        theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "default";
-      }
-
-      document.querySelector("html").classList.remove("dark");
-      document.querySelector("html").classList.remove("default");
-      document.querySelector("html").classList.remove("auto");
-
-      document
-        .querySelector("html")
-        .classList.add(this.getOriginalAppearance());
-
-      setTimeout(() => {
-        $resetStylesEl.remove();
-      });
-
-      if (dispatchEvent) {
-        window.dispatchEvent(
-          new CustomEvent("on-hs-appearance-change", { detail: theme }),
-        );
-      }
-    },
-    getAppearance() {
-      let theme = this.getOriginalAppearance();
-      if (theme === "auto") {
-        theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "default";
-      }
-      return theme;
-    },
-    getOriginalAppearance() {
-      const defaultTheme = "default";
-      return localStorage.getItem("hs_theme") || defaultTheme;
-    },
-  };
-  HSThemeAppearance.init();
-
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", () => {
-      if (HSThemeAppearance.getOriginalAppearance() === "auto") {
-        HSThemeAppearance.setAppearance("auto", false);
-      }
-    });
-
-  window.addEventListener("load", () => {
-    const $clickableThemes = document.querySelectorAll(
-      "[data-hs-theme-click-value]",
-    );
-    const $switchableThemes = document.querySelectorAll(
-      "[data-hs-theme-switch]",
-    );
-
-    $clickableThemes.forEach(($item) => {
-      $item.addEventListener("click", () =>
-        HSThemeAppearance.setAppearance(
-          $item.getAttribute("data-hs-theme-click-value"),
-          true,
-          $item,
-        ),
-      );
-    });
-
-    $switchableThemes.forEach(($item) => {
-      $item.addEventListener("change", (e) => {
-        HSThemeAppearance.setAppearance(e.target.checked ? "dark" : "default");
-      });
-
-      $item.checked = HSThemeAppearance.getAppearance() === "dark";
-    });
-
-    window.addEventListener("on-hs-appearance-change", (e) => {
-      $switchableThemes.forEach(($item) => {
-        $item.checked = e.detail === "dark";
-      });
-    });
-  });
-</script>
+<!-- Theme Appearance script to manage light/dark modes - KALDIRILDI -->
+<!-- <script is:inline> ... </script> -->
