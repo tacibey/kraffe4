@@ -14,16 +14,15 @@
   {...Astro.props}
 >
   <title>Kraffe Roasters Logo</title>
-  <style type="text/css">
-    .st0{fill-rule:evenodd;clip-rule:evenodd;fill:currentColor;}
-	  .st1{fill-rule:evenodd;clip-rule:evenodd;fill:#F28C00;}
-	  .st2{fill:#F28C00;}
+    <style>
+    /* SVG içindeki sınıfların varsayılan rengi */
+    .st0 { fill: #404040; /* Açık tema için varsayılan koyu gri */ }
+    .st1 { fill: #F28C00; /* Turuncu - değişmeyecek */ }
+    .st2 { fill: #F28C00; /* Turuncu - değişmeyecek */ }
 
-    :global([data-theme="dark"]) .st0 {
-       fill: #E5E5E5; /* Koyu tema için açık gri */
-    }
-     :global([data-theme="light"]) .st0 {
-       fill: #404040; /* Açık tema için koyu gri */
+    /* Koyu tema aktif olduğunda .st0 sınıfının rengini değiştir */
+    :global(html.dark) .st0 {
+      fill: #E5E5E5; /* Koyu tema için açık gri/beyaza yakın */
     }
   </style>
   <polygon class="st0" points="54.2,86.2 54.2,55.5 82.6,81.8 82.6,108.1 122.5,55.5 156.8,55.5 111.3,113 160.4,176.2 125.6,176.2 82.6,120.7 82.6,141.3 82.6,176.2 54.2,176.2 54.2,141.3 54.2,108.1 "/>
