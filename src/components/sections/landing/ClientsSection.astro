@@ -1,9 +1,12 @@
 ---
+import { Image } from "astro:assets"; // Image bileşenini import et
+
 // Define props from Astro
 const { title, subTitle, partners } = Astro.props;
 
 interface Partner {
-  icon: any;
+  logo: ImageMetadata; // 'icon' yerine 'logo' ve tipini ImageMetadata yaptık
+  alt: string;        // 'alt' özelliğini zorunlu yaptık
   name?: string;
   href?: string;
 }
@@ -14,6 +17,9 @@ interface Props {
   subTitle?: string;
   partners: Partner[];
 }
+
+// Logo boyutlarını ayarlamak için Tailwind sınıfları
+const logoClasses = "h-10 w-auto object-contain"; // Yüksekliği sabitleyip genişliği otomatik ayarladık. İhtiyaca göre değiştirin (örn: h-12)
 ---
 
 <section
@@ -35,13 +41,24 @@ interface Props {
     }
   </div>
   <div
-    class="flex flex-col items-center justify-center gap-y-2 sm:flex-row sm:gap-x-12 sm:gap-y-0 lg:gap-x-24"
+    class="flex flex-col items-center justify-center gap-y-6 sm:flex-row sm:gap-x-12 sm:gap-y-0 lg:gap-x-24" // Gap artırıldı
   >
-    <!-- Clients Group SVGs -->
+    <!-- Clients Group Logos -->
     {
       partners.map((partner) => (
-        <a href={partner.href} target="_blank" rel="noopener noreferrer">
-              <div set:html={partner.icon} />
+        <a
+          href={partner.href || '#'} // Eğer href yoksa '#' kullan
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block transition duration-300 ease-in-out hover:opacity-80"
+          aria-label={partner.name || partner.alt} // Erişilebilirlik için etiket
+        >
+          <Image
+            src={partner.logo}
+            alt={partner.alt}
+            class={logoClasses}
+            loading="lazy"
+          />
         </a>
       ))
     }
