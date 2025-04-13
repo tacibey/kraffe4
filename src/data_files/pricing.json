@@ -1,38 +1,45 @@
 {
-  "title": "Simple, Transparent Pricing",
-  "subTitle": "Boost efficiency with ScrewFast's clear, value-driven plans.",
-  "badge": "Best value",
-  "thirdOption": "Enterprise Solutions?",
-  "btnText": "Get a Custom Quote",
+  "title": "Engineered for Roasting Excellence",
+  "subTitle": "Precision machinery tailored to your production scale",
+  "badge": "Roaster's Favorite",
+  "thirdOption": "Need custom solutions or higher capacity?",
+  "btnText": "Get an Enterprise Quote",
 
   "starterKit": {
-    "name": "Starter Kit",
-    "description": "Best option for DIY projects",
-    "price": "49",
-    "cents": ".00",
-    "billingFrequency": "USD / monthly",
+    "name": "Shop Roasters",
+    "description": "Optimum size for small-middle sized roasteries",
+    "price": "Explore",
+    "cents": "",
+    "billingFrequency": "",
     "features": [
-      "Key hardware tools",
-      "Access to guides & tutorials",
-      "Standard support"
+      "Cropster & Artisan Compatibility",
+      "Free profile repeating software",
+      "Double-walled drum +15% capacity",
+      "Modulated Premix Burner system",
+      "Drum speed & airflow controls",
+      "Cast iron front plate durability",
+      "Easy maintenance access"
     ],
-    "purchaseBtnTitle": "Get the Starter Kit",
-    "purchaseLink": "#"
+    "purchaseBtnTitle": "Explore Our Machines",
+    "purchaseLink": "/products" 
   },
 
   "professionalToolbox": {
-    "name": "Professional Toolbox",
-    "description": "Best for large scale uses",
-    "price": "89",
-    "cents": ".00",
-    "billingFrequency": "USD / monthly",
+    "name": "Industrial Roasters",
+    "description": "For mass production purposes in large scales",
+    "price": "Explore",
+    "cents": "",
+    "billingFrequency": "",
     "features": [
-      "Premium tool selection",
-      "Priority support",
-      "Exclusive content & deals",
-      "Bulk order discounts"
+      "High-efficiency insulation system",
+      "Extended 50kg+ batch capacity",
+      "Hot air flow precision control",
+      "Global brand components (Siemens, ABB)",
+      "Custom configuration options",
+      "Production-line consistency",
+      "Dedicated 24/7 priority support"
     ],
-    "purchaseBtnTitle": "Get the Professional Toolbox",
-    "purchaseLink": "#"
+    "purchaseBtnTitle": "Explore Our Machines",
+    "purchaseLink": "/products" 
   }
 }
