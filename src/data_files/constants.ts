@@ -1,4 +1,6 @@
 import ogImageSrc from "@images/social.png"; // Ensure this image exists or change path
+import ceLogo from "@images/ce-mark.avif"; // CE logosunun yolu
+import scaLogo from "@images/sca-logo.webp"; // SCA logosunun yolu
 
 export const SITE = {
   title: "Kraffe Roasters | Industrial & Commercial Coffee Roasting Machines", // SEO Title
@@ -41,14 +43,15 @@ export const OG = { // Open Graph Meta Tags (for Facebook, LinkedIn, etc.)
 // Partners data (Fill this with SVG code of your actual partner logos)
 export const partnersData = [
     {
-        icon: `<svg class="..."><title>Partner Logo 1</title>...</svg>`, // SVG code for partner logo
-        name: "Partner 1",
-        href: "#", // Link to partner website
+        logo: ceLogo, // Import edilen değişkeni kullanıyoruz
+        alt: "CE Marking Certification Logo",
+        name: "CE Marking", // Opsiyonel isim
+  
     },
     {
-        icon: `<svg class="..."><title>Partner Logo 2</title>...</svg>`,
-        name: "Partner 2",
-        href: "#",
+        logo: scaLogo, // Import edilen değişkeni kullanıyoruz
+        alt: "Specialty Coffee Association Member Logo",
+        name: "Specialty Coffee Association Member", // Opsiyonel isim
+        
     },
-    // Add more partners as needed
 ];
